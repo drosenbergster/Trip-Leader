@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-warm-50: #faf6f1;
+  --color-warm-100: #f0e8dd;
+  --color-warm-200: #e0d0ba;
+  --color-warm-300: #c9a96e;
+  --color-warm-400: #b8944f;
+  --color-warm-500: #9a7a3e;
+  --color-warm-600: #7b6132;
+  --color-warm-700: #5c4925;
+  --color-warm-800: #3a3228;
+  --color-warm-900: #252018;
+  --color-warm-950: #1a1610;
+
+  --color-garage-bg: #111111;
+  --color-garage-surface: #1a1a1a;
+  --color-garage-card: #1e1b14;
+  --color-garage-border: #2a2520;
+  --color-garage-border-accent: #3a3228;
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--color-garage-bg);
+  color: #e8e0d0;
+}
+
+::selection {
+  background: rgba(201, 169, 110, 0.3);
+}

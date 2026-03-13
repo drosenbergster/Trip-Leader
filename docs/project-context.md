@@ -1,98 +1,89 @@
-# Trip Leader -- Project Context
+# Gear Garage — Project Context
 
 ## What Is This Project?
 
-A trip planning and gear management app for outdoor adventurers. Two sections, one app: a **Trip Planner** that turns group logistics into a shareable link, and a **Gear Closet** that tracks what you own and shows you how ready you are for the next adventure.
+A personal gear inventory app for outdoor adventurers. Your digital garage — organized by activity, built for the person who actually owns the stuff. Every activity gets its own section, every item gets tracked, and you can see at a glance how ready you are for the next adventure.
 
 **Mission:** Adventure is closer than you thought.
 
-## Current State (as of 2026-03-03)
+## Product Split (2026-03-12)
 
-### Phase: Product Discovery -- Complete
+This project was originally conceived as "one app, two sections" — a Trip Planner + Gear Closet. That vision has been split into two independent products:
 
-Two BMAD workflows have been completed:
+| Product | What It Does | Repo |
+|---|---|---|
+| **Gear Garage** | Personal gear inventory management, organized by activity | This repo |
+| **Trip Leader** | Group trip logistics, shareable links, crew coordination | Separate repo (future) |
 
-1. **Brainstorming Session** -- 108 questions, 14 cross-pollinated patterns from 5 domains, full morphological analysis, 8 themes, prioritized feature roadmap
-2. **Product Brief** -- Executive summary, core vision, target users, success metrics, MVP scope with v1/v2 split
+The two products may integrate in the future (a trip's packing list could pull from your Gear Garage) but they are developed independently.
+
+## Current State (as of 2026-03-12)
+
+### Phase: Product Discovery → Build
+
+Planning is complete. Building has begun.
 
 ### Artifacts
 
 | File | What It Is |
 |---|---|
-| `RaftGearManifest.jsx` | Original React prototype -- a gear inventory tracker for a Lower Deschutes raft trip. Single component, localStorage persistence, inline editing, status tracking. This is the seed that started the project. |
-| `_bmad-output/planning-artifacts/product-brief-Rafting-Checklist-20260303.md` | **The Product Brief** -- the primary planning document. Contains vision, problem statement, target users, success metrics, MVP scope, and design principles. Start here for project context. |
-| `_bmad-output/brainstorming/brainstorming-session-20260303-125302.md` | **The Brainstorming Session** -- deep research artifact. 100 questions, cross-pollination results, morphological grid, universal trip data model, and full idea organization. Reference for detailed feature rationale. |
+| `_bmad-output/planning-artifacts/product-brief-gear-garage.md` | **The Gear Garage Product Brief** — vision, target user, activity model, MVP scope |
+| `_bmad-output/planning-artifacts/product-brief-trip-leader.md` | **The Trip Leader Product Brief** — saved for future separate development |
+| `_bmad-output/planning-artifacts/product-brief-Rafting-Checklist-20260303-archived.md` | **Archived** — original combined product brief before the split |
+| `_bmad-output/brainstorming/brainstorming-session-20260303-125302.md` | **The Brainstorming Session** — 108 questions, cross-pollination, morphological analysis. Covers both products. |
+| `RaftGearManifest.jsx` | **Original prototype** — React gear inventory tracker for a Lower Deschutes raft trip. The seed that started the project. |
 
-### Key Decisions Made
+### Key Decisions
 
-- **One app, two sections** (Trip Planner + Gear Closet) -- could separate later
-- **Primary user:** The Adventure Leader (one person, two modes -- trip planning + gear management)
-- **Secondary user:** The Participant (views trip via shareable link, no account required)
-- **Product personality:** "Intentional and planned, but fun and loose and ready to dive into"
-- **USA domestic only** for v1
-- **Product boundary:** Trips where people plan and live together (not day hikes)
-- **Not:** a social network, route planner, messaging app, or booking tool
+- **Two independent products** — Gear Garage (inventory) and Trip Leader (logistics) developed separately
+- **Gear Garage first** — this repo, building now
+- **Activity model** — gear organized by sport/activity, each activity has sport-specific categories and visuals
+- **Primary user:** The gear head / adventure leader — one person across multiple sports
+- **Tech stack:** Next.js + Tailwind CSS + Supabase + Vercel
 
-### v1 Scope
+### Activity Organization
 
-**Trip Planning Core:**
-- Trip Overview (dates, route, map link, description)
-- Crew Roster (invite via shareable link, confirmations)
-- Itinerary (day-by-day plan)
-- Meal Plan (meals by day, who's cooking, grocery list)
-- Shareable Trip Page (one link, no login to view, progressive disclosure)
-- Basic Gear/Packing List (per-trip checklist, who's bringing what)
+The Gear Garage is organized by activity — each one with sport-specific categories:
 
-**Stress Reduction Layer:**
-- Gear Closet (persistent personal inventory, condition tracking, wishlists)
-- Cost Ledger (log expenses + receipts, auto-calculate settlement)
-- Readiness Dashboard (per-person status, leader sees all)
-- Configurable Reminders (time-sequenced, leader-only or crew-wide)
-- Task Board (assign responsibilities, section delegation)
+- **Rafting** — Raft & Frame, Rowing, Waste System, Storage, Cooking & Fire, Safety, Pump, Tools, Permits, Personal Gear
+- **Backcountry Skiing** — Skis & Bindings, Boots, Poles, Skins, Beacon/Shovel/Probe, Outerwear, Layers, Pack, Navigation, Emergency
+- **Mountain Biking** — Bike & Frame, Wheels & Tires, Drivetrain, Protection, Tools & Repair, Hydration, Clothing
+- **Hiking / Backpacking** — Pack, Shelter, Sleep System, Cooking, Water, Clothing, Navigation, Safety
+- **Car Camping** — Shelter, Sleep, Kitchen & Cooking, Fire, Furniture, Lighting, Storage, Entertainment
+- **Custom** — any activity, any categories
 
-### v2 Scope (Future)
-- Post-trip brain dump (voice-to-text → structured data)
-- Trip templates / cloning
-- Pre-trip PDF generation
-- Resource Library
-- Participant profiles (dietary, medical, carried across trips)
+Each activity has: sport-specific default categories, visual treatments, items with status/condition/notes, readiness summary.
 
-### Universal Trip Data Model
+## v1 Scope — "The Garage Is Open"
 
-```
-TRIP = {
-  overview:     { dates, route, description, type, map_link }
-  crew:         [ { person, role, readiness, bring_list, expenses } ]
-  itinerary:    [ { day, plan, location, notes } ]
-  meals:        [ { day, meal, menu, cook, grocery_list } ]
-  tasks:        [ { task, owner, status } ]
-  resources:    [ { name, link_or_file, type } ]
-  reminders:    [ { trigger_time, audience, message } ]
-  costs:        [ { item, amount, paid_by, split_among, receipt } ]
-  emergency:    { contacts, hospitals, evacuation_notes }
-  post_trip:    { brain_dump, gear_notes, location_intel, learnings }
-  gear_closet:  → optional link to persistent inventory
-}
-```
-
-## Recommended Next Steps
-
-1. **Create PRD** -- Detailed product requirements, user stories, acceptance criteria (`bmad-bmm-create-prd`)
-2. **Create UX Design** -- Trip page design, progressive disclosure UX, gear closet UI (`bmad-bmm-create-ux-design`)
-3. **Create Architecture** -- Tech stack, data model, auth, shareable link infrastructure (`bmad-bmm-create-architecture`)
-4. **Build** -- Expand from the existing `RaftGearManifest.jsx` prototype
+- Garage Home — overview of all activities with readiness summaries
+- Activity View — single sport's gear organized by category with visual gear cards
+- Item Management — add/edit/delete items with name, detail, status, condition, notes
+- Category Management — add/edit/delete/reorder categories within activities
+- Activity Templates — pre-built defaults for common sports
+- Custom Activities — create any activity with any categories
+- Readiness Dashboard — per-activity and overall readiness
+- Auth + persistent storage (Supabase)
 
 ## Design Principles
 
-- Shareable trip in under 5 minutes or it fails
-- View trip pages without an account
-- Trip planning, not project management -- feels like planning a fun thing
-- The app provides structure; the leader provides knowledge
-- One app until complexity justifies separation
+- Personal tool first — your garage, not a social network
+- Organized by activity because that's how gear lives in your head
+- Beautiful and tactile — you should want to open it and poke around
+- See readiness at a glance
+- Zero-overhead onboarding — useful the first time you add an item
 
-## Key Differentiators
+## Data Model (Simplified)
 
-1. **Confidence Engine** -- Makes the invisible visible
-2. **Gear-to-Adventure Pipeline** -- Connects what you own to what's possible
-3. **Progressive Disclosure** -- One link serves minimal and deep-dive participants
-4. **Knowledge That Compounds** -- Past trips become templates; intelligence earned through use
+```
+GARAGE = {
+  user:       { id, email, preferences }
+  activities: [ {
+    name, sport, icon, custom_settings,
+    categories: [ {
+      name, icon, sort_order,
+      items: [ { name, detail, status, condition, notes, sort_order } ]
+    } ]
+  } ]
+}
+```
